@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 BTS SECRET MATCH 😈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neonGreen: '#00ff66',
+                        electricPurple: '#bc13fe',
+                        deepBlack: '#000000',
+                    },
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(0, 255, 102, 0.5), 0 0 5px rgba(188, 19, 254, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
+        body { font-family: 'Outfit', sans-serif; background-color: #000; color: white; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .neon-text { text-shadow: 0 0 10px #00ff66, 0 0 20px #bc13fe; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hide { display: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Main Container -->
+    <main id="app" class="w-full max-w-lg z-10 transition-all duration-500">
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="glass p-8 rounded-3xl text-center fade-in">
+            <h1 class="text-4xl font-bold mb-4 neon-text text-transparent bg-clip-text bg-gradient-to-r from-neonGreen to-electricPurple">🔥 BTS SECRET MATCH 😈</h1>
+            <p class="mb-8 text-gray-300">Atrévete a cruzar la línea... Descubre qué miembro de BTS enciende tu fuego interior y comparte tus deseos más ocultos.</p>
+            <input type="text" id="username" placeholder="Tu nombre o apodo" class="w-full bg-white/5 border border-white/20 p-4 rounded-xl mb-6 text-white placeholder-gray-500 focus:outline-none focus:border-neonGreen transition-all">
+            <button onclick="startQuiz()" class="w-full py-4 bg-transparent border-2 border-neonGreen text-neonGreen font-bold rounded-xl hover:bg-neonGreen hover:text-black transition-all transform hover:scale-105 shadow-neon">ENCENDER LA TENTACIÓN YMVS</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="glass p-8 rounded-3xl hide fade-in">
+            <div id="question-container"></div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="glass p-8 rounded-3xl hide fade-in text-center">
+            <h2 class="text-3xl font-bold mb-6">Resultado: <span id="display-name" class="text-electricPurple"></span></h2>
+            <div id="result-content" class="text-xl mb-8"></div>
+            <button onclick="location.reload()" class="w-full py-4 bg-transparent border border-white/30 rounded-xl hover:bg-white/10 transition-all">🔄 Repetir experiencia</button>
+        </div>
+    </main>
+
+    <!-- Fixed Footer -->
+    <footer class="fixed bottom-0 w-full glass border-t border-electricPurple py-4 px-6 text-center z-50">
+        <p class="text-sm text-gray-400 mb-2">🔥 ¿Quieres libros, guías y afiches digitales de BTS? ¡Escríbenos! 🔥</p>
+        <a href="https://t.me/creativeymvs" target="_blank" class="inline-block px-6 py-2 bg-gradient-to-r from-neonGreen to-electricPurple text-black font-bold rounded-full text-sm hover:scale-105 transition-transform">✈️ Unirse al Canal en Telegram</a>
+    </footer>
+
+    <script>
+        const questions = [
+            { q: "¿Cómo describes tu noche ideal?", opts: ["Bajo las estrellas", "En un club privado", "Un momento íntimo"] },
+            { q: "¿Qué es lo que más te atrae en un chico?", opts: ["Su mirada penetrante", "Su elegancia natural", "Su lado rebelde"] },
+            { q: "¿Cuál es tu forma de demostrar amor?", opts: ["Cartas apasionadas", "Gestos de contacto físico", "Lealtad absoluta"] },
+            { q: "¿En qué lugar te gustaría tener una cita secreta?", opts: ["Azotea de noche", "Un estudio de arte", "Viaje improvisado"] },
+            { q: "¿Qué color define tu aura en la oscuridad?", opts: ["Violeta eléctrico", "Verde neón", "Negro profundo"] },
+            { q: "¿Cuál es tu mayor secreto en una relación?", opts: ["La intensidad del deseo", "La necesidad de aventura", "La conexión espiritual"] }
+        ];
+
+        const members = ["Jungkook", "V", "Jimin", "Jin", "Suga", "RM", "J-Hope"];
+        let currentQ = 0;
+        let userName = "";
+
+        function startQuiz() {
+            const nameInput = document.getElementById('username').value;
+            if(!nameInput) return alert("Por favor, ingresa tu nombre.");
+            userName = nameInput;
+            document.getElementById('welcome-screen').classList.add('hide');
+            document.getElementById('quiz-screen').classList.remove('hide');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('question-container');
+            const q = questions[currentQ];
+            container.innerHTML = `
+                <p class="text-lg mb-6 text-gray-400">Pregunta ${currentQ + 1} de 6</p>
+                <h3 class="text-2xl font-bold mb-6 text-white">${q.q}</h3>
+                <div class="space-y-4">
+                    ${q.opts.map(opt => `<button onclick="nextQuestion()" class="w-full p-4 glass rounded-xl hover:border-electricPurple hover:text-electricPurple transition-all">${opt}</button>`).join('')}
+                </div>
+            `;
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if(currentQ < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            const member = members[Math.floor(Math.random() * members.length)];
+            document.getElementById('quiz-screen').classList.add('hide');
+            document.getElementById('result-screen').classList.remove('hide');
+            document.getElementById('display-name').innerText = userName;
+            document.getElementById('result-content').innerHTML = `
+                <p class="mb-4">Tu magnetismo nocturno te ha unido a <span class="text-neonGreen font-bold">${member}</span>.</p>
+                <p class="text-lg italic text-gray-400">"La tensión sensual entre ambos es inevitable, un juego de sombras donde solo el fuego sobrevive. Prepárate para el encuentro que cambiará tu visión de la noche."</p>
+                <div class="text-4xl mt-6">🔥 😈 💜 ⚡</div>
+            `;
+        }
+    </script>
+</body>
+</html>
